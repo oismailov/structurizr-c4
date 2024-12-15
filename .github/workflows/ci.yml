@@ -22,13 +22,35 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Step 1: Generate PlantUML diagrams
+      - name: Install Java for PlantUML
+        run: sudo apt-get update && sudo apt-get install -y default-jre
+
+      - name: Download PlantUML
+        run: |
+          curl -O https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
+          mv download plantuml.jar
+
+      - name: Generate PlantUML Diagrams
+        run: |
+          mkdir -p build/diagrams
+          java -jar plantuml.jar -tpng path/to/your/diagrams/*.puml -o build/diagrams
+
+      # Step 2: Generate Structurizr site
       - name: Create site
         run: |
           /opt/structurizr-site-generatr/bin/structurizr-site-generatr generate-site -w diagram.dsl
+
+      # Step 3: Include PlantUML diagrams in site
+      - name: Copy PlantUML diagrams into site
+        run: cp -r build/diagrams build/site/diagrams
+
       - uses: actions/upload-artifact@v3
         with:
           name: website
           path: build/site
+
   deploy:
     needs: build
     environment:
@@ -40,12 +62,15 @@ jobs:
         with:
           name: website
           path: build/site
+
       - name: Setup Pages
         uses: actions/configure-pages@v3
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           path: "build/site"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
