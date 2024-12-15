@@ -3,8 +3,8 @@ workspace "Tweety" "Tweety RTB"
 
 
 model {
-  consumer = person "External User" {
-    tags "externalUser"
+  user = person "User" {
+    tags "user"
   }
   tweety = softwareSystem "Tweety" {
     tags tweety
@@ -39,7 +39,7 @@ model {
   }
 
   #software systems
-  consumer -> tweety "Get Ads"
+  user -> tweety "Get Ads"
   tweety -> mediaGuard "Detect Invalid Traffic (IVT)"
 
   #containers
@@ -115,10 +115,11 @@ views {
       background #FDB900
       color #000000
     }
-    element "externalUser" {
+    element "user" {
       shape person
-      background #6C3BAA
+      background #6DA3F7
       color #000000
+      border solid
     }
     element "lambda" {
       shape hexagon
