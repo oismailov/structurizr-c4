@@ -6,7 +6,7 @@ model {
   user = person "User" {
     tags "user"
   }
-  tweety = softwareSystem "Tweety" {
+  tweety = softwareSystem "Tweety" "EXCO As Ad Server" {
     tags tweety
     rtb = container "RTB API" {
       tags api
@@ -33,7 +33,7 @@ model {
     }
   }
 
-  mediaGuard = softwareSystem "MediaGuard"{
+  mediaGuard = softwareSystem "MediaGuard" "Ad Fraud & Spoofing Protection For DSPs, SSPs & CTV"{
     ivt = container "IVT"
     tags mediaGuard
   }
