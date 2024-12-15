@@ -1,0 +1,12 @@
+@startuml
+start
+:Define requirements;
+:Design solution;
+if (Is design okay?) then (yes)
+  :Implement solution;
+else (no)
+  :Revise design;
+endif
+:Test implementation;
+stop
+@enduml
