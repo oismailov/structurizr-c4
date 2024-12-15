@@ -32,13 +32,13 @@ jobs:
       - name: Install puml-for-markdown
         run: npm i -g puml-for-markdown
 
-      - name: Generate PlantUML Diagrams
-        run:  puml-for-markdown -d build/diagrams -b build/diagrams
-
       # Step 2: Generate Structurizr site
       - name: Create site
         run: |
           /opt/structurizr-site-generatr/bin/structurizr-site-generatr generate-site -w diagram.dsl
+
+      - name: Generate PlantUML Diagrams
+        run:  puml-for-markdown -d build/diagrams -b build/diagrams
 
       # Step 3: Include PlantUML diagrams in site
       - name: Copy PlantUML diagrams into site
