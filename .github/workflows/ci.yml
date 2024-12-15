@@ -25,10 +25,10 @@ jobs:
 
       # Step 1: Generate PlantUML diagrams
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4.1.0
         
-      - name: Install  puml-for-markdown
-        run: npm i -g puml-for-markdown
+      - name: Install puml-for-markdown
+        run: npm i puml-for-markdown
 
       - name: Generate PlantUML Diagrams
         run:  puml-for-markdown -d build/diagrams -b build/diagrams
