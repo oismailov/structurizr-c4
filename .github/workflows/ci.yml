@@ -35,7 +35,7 @@ jobs:
       - name: Generate PlantUML Diagrams
         run: |
           mkdir -p build/diagrams
-          java -jar plantuml.jar -tpng path/to/your/diagrams/*.puml -o build/diagrams
+          java -jar plantuml.jar -tpng flow-chart.puml -o build/diagrams
 
       # Step 2: Generate Structurizr site
       - name: Create site
