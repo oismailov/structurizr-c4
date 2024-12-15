@@ -1,20 +1,19 @@
 workspace "Tweety" "Tweety RTB"
 !identifiers hierarchical
 
-
 model {
   user = person "User" {
     tags "user"
   }
   tweety = softwareSystem "Tweety" "EXCO As Ad Server" {
-    tags tweety
+    tags "tweety"
     rtb = container "RTB API" {
-      tags api
+      tags "api"
     }
     demand = container "Demand API" {
-      tags api
+      tags "api"
       localCache = component "Local Cache" {
-        tags localCache
+        tags "localCache"
       }
       demandController = component "Demand Controller"
       demandService = component "Demand Service"
@@ -23,34 +22,34 @@ model {
     }
 
     redis = container "Redis" {
-      tags redis
+      tags "redis"
     }
     sqs = container "SQS" {
-      tags sqs
+      tags "sqs"
     }
     lambda = container "Lambda" {
-      tags lambda
+      tags "lambda"
     }
   }
 
-  mediaGuard = softwareSystem "MediaGuard" "Ad Fraud & Spoofing Protection For DSPs, SSPs & CTV"{
+  mediaGuard = softwareSystem "MediaGuard" "Ad Fraud & Spoofing Protection For DSPs, SSPs & CTV" {
     ivt = container "IVT"
-    tags mediaGuard
+    tags "mediaGuard"
   }
 
-  #software systems
+  # software systems
   user -> tweety "Get Ads"
   tweety -> mediaGuard "Detect Invalid Traffic (IVT)"
 
-  #containers
+  # containers
   tweety.rtb -> tweety.demand "Get Demands"
   tweety.demand -> tweety.redis "Get Cached Records"
   tweety.lambda -> mediaGuard.ivt "Get IVT"
-  tweety.demand -> tweety.sqs "Pushe Message"
+  tweety.demand -> tweety.sqs "Push Message"
   tweety.sqs -> tweety.lambda "Send Message for Processing"
   tweety.lambda -> tweety.redis "Store Processed Record"
 
-  #components
+  # components
   tweety.demand.demandController -> tweety.demand.demandService "Get Demands"
   tweety.demand.demandService -> tweety.demand.localCache "Read/Write IVT Records"
 
@@ -59,40 +58,42 @@ model {
 
   tweety.demand.demandService -> tweety.demand.sqsService "Push Records for Processing"
   tweety.demand.sqsService -> tweety.sqs "Push Records for Processing"
-
 }
 
 views {
-systemLandscape {
-            include *
-            autoLayout lr
-        }
- documentation {
-            // Create a separate page for the image
-            section "Image Page" {
-                content """
-                ![Example Image](../diagrams/flow-chart.png)
+  systemLandscape {
+    include *
+    autoLayout lr
+  }
 
-                This is an example of an image displayed on its own page.
-                """
-            }
-        }
+  documentation {
+    format markdown
+    section "Image Page" {
+      content """
+      ![Example Image](../diagrams/flow-chart.png)
+
+      This is an example of an image displayed on its own page.
+      """
+    }
+  }
+
   properties {
     generatr.site.exporter structurizr
   }
-  systemContext tweety  "TweetySystemContext" {
+
+  systemContext tweety "TweetySystemContext" {
     include *
-    autolayout lr
+    autoLayout lr
   }
 
   container tweety "TweetyContainers" {
     include *
-    autolayout lr
+    autoLayout lr
   }
 
   component tweety.demand "DemandComponents" {
     include *
-    autolayout tb
+    autoLayout tb
   }
 
   styles {
@@ -106,7 +107,7 @@ systemLandscape {
     element "Container" {
       background #6495ED
     }
-    element "component" {
+    element "Component" {
       background #6495ED
     }
     element "mediaGuard" {
@@ -155,5 +156,3 @@ systemLandscape {
     }
   }
 }
-}
-
