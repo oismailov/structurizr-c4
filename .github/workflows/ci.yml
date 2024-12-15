@@ -24,18 +24,14 @@ jobs:
         uses: actions/checkout@v3
 
       # Step 1: Generate PlantUML diagrams
-      - name: Install Java for PlantUML
-        run: apt-get update && apt-get install -y default-jre
-
-      - name: Download PlantUML
-        run: |
-          curl -O https://sourceforge.net/projects/plantuml/files/plantuml.jar/download
-          mv download plantuml.jar
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        
+      - name: Install  puml-for-markdown
+        run: npm i -g puml-for-markdown
 
       - name: Generate PlantUML Diagrams
-        run: |
-          mkdir -p build/diagrams
-          java -jar plantuml.jar -tpng flow-chart.puml -o build/diagrams
+        run:  puml-for-markdown -d build/diagrams -b build/diagrams
 
       # Step 2: Generate Structurizr site
       - name: Create site
