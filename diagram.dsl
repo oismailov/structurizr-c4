@@ -63,6 +63,10 @@ model {
 }
 
 views {
+systemLandscape {
+            include *
+            autoLayout lr
+        }
  documentation {
             // Create a separate page for the image
             section "Image Page" {
