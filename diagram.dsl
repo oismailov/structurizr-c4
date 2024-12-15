@@ -63,6 +63,16 @@ model {
 }
 
 views {
+ documentation {
+            // Create a separate page for the image
+            section "Image Page" {
+                content """
+                ![Example Image](../diagrams/flow-chart.png)
+
+                This is an example of an image displayed on its own page.
+                """
+            }
+        }
   properties {
     generatr.site.exporter structurizr
   }
