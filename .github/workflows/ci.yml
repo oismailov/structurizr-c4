@@ -30,7 +30,7 @@ jobs:
           node-version: '18'
         
       - name: Install puml-for-markdown
-        run: npm i puml-for-markdown
+        run: npm i -g puml-for-markdown
 
       - name: Generate PlantUML Diagrams
         run:  puml-for-markdown -d build/diagrams -b build/diagrams
